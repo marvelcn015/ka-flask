@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 from flask_cors import CORS
 import os
 
@@ -8,7 +8,7 @@ CORS(app)
 @app.route('/')
 def index():
     print("GET /")
-    return "Server is running!"
+    return render_template('index.html')
 
 @app.route('/status', methods = ['GET'])
 def status():

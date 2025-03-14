@@ -1,25 +1,28 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset = "utf-8">
-        <meta name = "viewport", content = "width=device-width, initial-scale=1.0">
-    </head>
-    <script>
-        function getStatus(){
-            fetch("http://172.20.10.2:5000/status", {method : "GET"})
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" , content="width=device-width, initial-scale=1.0">
+</head>
+<script>
+    function getStatus() {
+        fetch("https://ka-flask.zeabur.app/status", { method: "GET" })
             .then(response => response.json())
             .then(data => {
-                document.getElementById("statusResult").innerText = 
-                `status:${data.status}, version:${data.version}`;
+                document.getElementById("statusResult").innerText =
+                    `status:${data.status}, version:${data.version}`;
             })
-            .catch(error =>{
+            .catch(error => {
                 document.getElementById("statusResult").innerText = "Please check Flask without open";
             });
-        }
-    </script>
-    <body>
-        <h2>Flask connect test</h2>
-        <button onclick = "getStatus()">get the status</button>
-        <p id = "statusResult"></p>
-    </body>
+    }
+</script>
+
+<body>
+    <h2>Flask connect test</h2>
+    <button onclick="getStatus()">get the status</button>
+    <p id="statusResult"></p>
+</body>
+
 </html>
