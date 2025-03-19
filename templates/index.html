@@ -6,8 +6,11 @@
     <meta name="viewport" , content="width=device-width, initial-scale=1.0">
 </head>
 <script>
+    const BASE_URL = "https://ka-flask.zeabur.app"
+    // http://172.20.10.3:5000
+    // https://ka-flask.zeabur.app
     function getStatus() {
-        fetch("https://ka-flask.zeabur.app/status", { method: "GET" })
+        fetch(`${BASE_URL}/status`, { method: "GET" })
             .then(response => response.json())
             .then(data => {
                 document.getElementById("statusResult").innerText =
@@ -17,12 +20,38 @@
                 document.getElementById("statusResult").innerText = "Please check Flask without open";
             });
     }
+
+    function submitData(){
+        let name = document.getElementById("name").value;
+        if(!name){
+            document.getElementById("submitResult").innerText = "Please input name";
+            return;
+        }
+        fetch(`${BASE_URL}/submit`,{
+            method : "POST",
+            headers : {"Content-Type" : "application/json"},
+            body : JSON.stringify({name : name})
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("submitResult").innerText = `back-end response ${data.message}`;
+        })
+        .catch(error => {
+            document.getElementById("submitResult").innerText = "ask failed, please check connect";
+        });
+    }
 </script>
 
 <body>
     <h2>Flask connect test</h2>
     <button onclick="getStatus()">get the status</button>
     <p id="statusResult"></p>
+    <hr>
+    <h2>submit test</h2>
+    <input type = "text" id = "name" name = "name" required>
+    <br>
+    <button onclick = "submitData()">submit</button>
+    <p id = "submitResult"></p>
 </body>
 
 </html>
